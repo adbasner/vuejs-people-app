@@ -6,6 +6,7 @@
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="https://unpkg.com/vue2-filters/dist/vue2-filters.js"></script>
   <script src="index.js" defer></script>
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
@@ -29,12 +30,15 @@
     <hr>
     <hr>
 
-    <div v-for="person in people"> 
-      <p v-on:click="toggleBio(person)">{{ person.name }} </p>
-      <p v-if="person.bioVisible">{{ person.bio }}</p>
-      <button v-on:click="deletePerson(person)">Delete me</button>
-      <hr>
-    </div>
+    <transition-group name="slide-left">
+      <div v-for="person in people" v-bind:key="person.id"> 
+        <p v-on:click="toggleBio(person)" >{{ person.name }} </p>
+        <!-- <p v-if="person.bioVisible">{{ person.bio }}</p> -->
+        <p v-bind:class="{hidden: person.bioVisible}">{{ person.bio }}</p>
+        <button v-on:click="deletePerson(person)">Delete me</button>
+        <hr>
+      </div>
+    </transition-group>
 
     <hr>
 
